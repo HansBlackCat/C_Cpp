@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 
 class Marine {
     int hp;
@@ -7,10 +8,12 @@ class Marine {
     int atk_speed;
     bool is_dead;
     bool is_steam_pack;
+    char* name;
 
     public:  
         Marine();
         Marine(int x, int y);
+        Marine(int x, int y, const char* marine_name);
 
         int atk();
         void be_attacked(int damaged_earn);
@@ -27,6 +30,7 @@ Marine::Marine() {
     atk_speed = 15;
     is_dead = false;
     is_steam_pack = false;
+    name = NULL;
 }
 Marine::Marine(int x, int y) {
     coord_x = x;
@@ -36,6 +40,18 @@ Marine::Marine(int x, int y) {
     atk_speed = 15;
     is_dead = false;
     is_steam_pack = false;
+}
+Marine::Marine(int x, int y, const char* marine_name) {
+    coord_x = x;
+    coord_y = y;
+    hp = 40;
+    damage = 6;
+    atk_speed = 15;
+    is_dead = false;
+    is_steam_pack = false;
+
+    name = new char[strlen(marine_name)+1];
+    strcpy(name, marine_name);
 }
 void Marine::move(int x, int y) {
     coord_x += x;
@@ -53,6 +69,7 @@ void Marine::steam_pack() {
 }
 void Marine::show_status() {
     std::cout << "-- Marine --" << std::endl;
+    std::cout << "Tag: " <<  name << std::endl;
     std::cout << "Loc: (" << coord_x << ", " << coord_y << ")" <<std::endl;
     std::cout << "Hp : " << hp << std::endl;
     std::cout << "Pak: " << is_steam_pack << std::endl;
@@ -77,13 +94,24 @@ int main() {
     marine2.show_status();
 
     */
-   Marine* marines[100];
-   
-   
-   marines[0] = new Marine(2,3);
-   marines[1] = new Marine(3,9);
+    /*
+    Marine *marines[100];
 
-   marines[0] -> show_status();
+    marines[0] = new Marine(2, 3);
+    marines[1] = new Marine(3, 9);
+
+    marines[0]->show_status();
+    */
+    Marine* marines[100];
+    marines[0] = new Marine(2, 3, "Marine 2");
+    marines[1] = new Marine(1, 5, "Marine 1");
+
+    marines[0] -> show_status();
+    marines[1] -> show_status();
+
+    delete marines[0];
+    delete marines[1];
 
     return 0;
+   
 }

@@ -3,4 +3,5 @@
 int main() {
     int x = 4;
     printf("hello world");
+    return 0;
 }
