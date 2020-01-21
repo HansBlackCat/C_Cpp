@@ -11,6 +11,7 @@
           "${file}",
           "-o",
           "${file}.out",
+          "-save-temps",
           "--debug"
         ],
         "group": {
