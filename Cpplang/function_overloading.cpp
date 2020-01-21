@@ -5,14 +5,28 @@ class Date {
     int month_;
     int day_;
 
-    public: 
-        void SetData(int year, int month, int date);
-        void AddDay(int inc);
-        void AddMonth(int inc);
-        void AddYear(int inc);
+    public:
 
-        int GetCurrentMonthTotalDays(int year, int month);
-        void ShowData();
+    void SetData(int year, int month, int date);
+    void AddDay(int inc);
+    void AddMonth(int inc);
+    void AddYear(int inc);
+
+    int GetCurrentMonthTotalDays(int year, int month);
+    void ShowData();
+
+    /*
+    Date(int year, int month, int day) {
+    year_ = year;
+    month_ = month;
+    day_ = day;
+    }
+    Date() {
+        year_ = 2000;
+        month_ = 1;
+        day_ = 1;
+    }*/
+    Date() = default;
 };
 
 void Date::SetData(int year, int month, int day) {
@@ -51,7 +65,7 @@ void Date::AddMonth(int inc) {
 }
 void Date::AddYear(int inc) { year_ += inc; }
 void Date::ShowData() {
-    std::cout << day_ << "." << month_ << "." << day_ << std::endl;
+    std::cout << day_ << ". " << month_ << ". " << year_ << std::endl;
 }
 
 void print(int x) { std::cout << "int: " << x << std::endl; }
@@ -66,4 +80,15 @@ int main() {
     print(a);
     print(b);
     print(c);
+
+    std::cout << std::endl;
+    // Date init(2010, 9, 23);
+    Date dap, dak;
+    dap.SetData(2011, 3, 1);
+    dap.ShowData();
+
+    dak.ShowData();
+    // init.ShowData();
+
+    return 0;
 }
