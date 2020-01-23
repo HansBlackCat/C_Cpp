@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "Build with Clang",
+        "label": "Debug Build with Clang++",
         "type": "shell",
         "command": "clang++",
         "args": [
@@ -14,10 +14,31 @@
           "-save-temps",
           "--debug"
         ],
-        "group": {
-          "kind": "build",
-          "isDefault": true
-        }
+        "group": "build"
+      },
+      {
+        "label": "Exec Clang++-Compiled",
+        "type": "shell",
+        "command": "${fileDirname}/${fileBasenameNoExtension}",
+        "group": "build"
+      },
+      {
+        "type": "shell",
+        "label": "Build active file with Clang++",
+        "command": "/usr/bin/clang++",
+        "args": [
+          "-g",
+          "${file}",
+          "-o",
+          "${fileDirname}/${fileBasenameNoExtension}",
+        ],
+        "options": {
+          "cwd": "/usr/bin"
+        },
+        "problemMatcher": [
+          "$gcc"
+        ],
+        "group": "build",
       }
     ]
   }
