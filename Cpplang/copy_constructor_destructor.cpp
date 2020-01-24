@@ -20,7 +20,8 @@ class Marine {
         Marine(const Marine& ma);
 
         int atk();
-        void be_attacked(int damaged_earn);
+        //void be_attacked(int damaged_earn);
+        Marine& be_attacked(int damage_earn); 
         void move(int x, int y);
         void steam_pack();
 
@@ -63,9 +64,19 @@ void Marine::move(int x, int y) {
     coord_y += y;
 }
 int Marine::atk() { return damage; }
+/*
 void Marine::be_attacked(int damage_earn) {
     hp -= damage_earn;
     if (hp <= 0) { Marine::is_dead = true; }
+}
+*/
+Marine& Marine::be_attacked(int d) {
+    this -> hp -= d;
+    if (hp <= 0) {
+        hp = 0;
+        is_dead = true;
+    }
+    return* this;
 }
 void Marine::steam_pack() {
     atk_speed = 9;
@@ -164,7 +175,14 @@ int main() {
     uarines[0] = Marine{2, 3, "Uarine 1"};
     uarines[0].show_status();
     */
-    
+
+    Marine marine1(0, 0, "KIM");
+    Marine marine2(10, 10, "PARK");
+
+    marine2.be_attacked(marine1.atk()).be_attacked(marine1.atk());
+
+    marine1.show_status();
+    marine2.show_status();
 
     Cons_and_Des cnd('c');
     simple_function();
