@@ -23,14 +23,16 @@ int main() {
     cout << pa << endl;
     a = 4;
     cout << pa << endl;
-    
+
+    std::cout << pa << std::endl;
+
     cout << endl;
 
     int* const ppa = &a;
     cout << ppa << endl;
     *ppa = 3;
     cout << ppa << endl;
-    // ppa = &b;    
+    // ppa = &b;
 
 
     return 0;

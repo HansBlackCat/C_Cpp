@@ -57,7 +57,8 @@ void Marine::show_status() {
 int main() {
     Marine marine1(2, 3);
     marine1.show_status();
-    
+
+
     Marine marine2(3, 5);
     marine2.show_status();
 
@@ -69,7 +70,7 @@ int main() {
     marine2.show_status();
 
     marine2.be_attacked(100);
-    
+
     marine1.show_status();
     marine2.show_status();
     return 0;
