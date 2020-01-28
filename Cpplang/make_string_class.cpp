@@ -31,6 +31,9 @@ class MyString {
         MyString& insert(int loc, const char* str);
         MyString& insert(int loc, char c);
         MyString& erase(int loc, int num);
+
+        char& operator[](const int index);
+        friend std::ostream& operator<<(std::ostream& os, const MyString& s);
 };
 MyString::MyString(char c) {
     string_content = new char[1];
@@ -186,6 +189,12 @@ int MyString::compare(const MyString& str) const {
     return -1;
 }
 
+char& MyString::operator[](const int index) {return string_content[index];}
+std::ostream& operator<<(std::ostream& os, const MyString& str) {
+    os << "\"--- " << str.string_content << " ---\"";  
+    return os;
+}
+
 int main() {
     MyString str1("hello world");
     MyString str2(str1);
@@ -221,6 +230,10 @@ int main() {
     MyString strcmp1("abcdef");
     MyString strcmp2("abcde");
     std::cout << "strcmp1 & 2 compare : " << strcmp1.compare(strcmp2) << std::endl;
+
+    MyString temp("abcdef");
+    temp[0] = 'K';
+    std::cout << temp << std::endl;
 
     std::cout << "MAIN END" << std::endl;
 

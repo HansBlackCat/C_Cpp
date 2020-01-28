@@ -9,11 +9,14 @@ class Complex {
         Complex(double real, double img): real(real), img(img) {}
 
         Complex operator+(const Complex& c);
+        Complex operator+(const char* str);
         Complex operator-(const Complex& c);
         Complex operator*(const Complex& c);
         Complex operator/(const Complex& c);
         Complex operator=(const Complex& c);
         Complex operator>>=(const double fn(double a));
+
+        friend std::ostream& operator<<(std::ostream& os, const Complex& c);
         
         void println();
 };
@@ -45,6 +48,12 @@ Complex Complex::operator=(const Complex& c) {
     return *this;
 }
 
+// iostream overload
+std::ostream& operator<<(std::ostream& os, const Complex& c) {
+    os << "(" << c.real << " , " << c.img << ") ";
+    return os;
+}
+
 // TODO
 // Give function as parameter
 Complex Complex::operator>>=(const double fn(double)) {
@@ -63,7 +72,7 @@ int main() {
     Complex c(0.0, 0.0);
 
     c = a * b + a / b + a + b;
-    c.println();
+    std::cout << c << std::endl;
 
 
 
