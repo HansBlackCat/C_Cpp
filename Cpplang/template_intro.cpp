@@ -41,6 +41,23 @@ class Vector {
         }
 };
 
+template <>
+class Vector<bool> {
+    unsigned int* data;
+    int capacity;
+    int length;
+
+    public:  
+        typedef bool value_type;
+
+        Vector(int n = 1)
+            : data(new unsigned int[n/32+1]), capacity(n/32+1), length(0) {
+                for (int i = 0; i < capacity; i++) {
+                    data[i] = 0;
+                }
+            }
+};
+
 int main() {
 
     Vector<int> int_vec;

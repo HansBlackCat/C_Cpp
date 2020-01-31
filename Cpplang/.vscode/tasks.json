@@ -27,6 +27,7 @@
         "label": "Build active file with Clang++",
         "command": "/usr/bin/clang++",
         "args": [
+          "-Wc++11-extensions",
           "-g",
           "${file}",
           "-o",
