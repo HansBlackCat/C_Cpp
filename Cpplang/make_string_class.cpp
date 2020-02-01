@@ -191,7 +191,7 @@ int MyString::compare(const MyString& str) const {
 
 char& MyString::operator[](const int index) {return string_content[index];}
 std::ostream& operator<<(std::ostream& os, const MyString& str) {
-    os << "\"--- " << str.string_content << " ---\"";  
+    os << "\"-*- " << str.string_content << " -*-\"";  
     return os;
 }
 

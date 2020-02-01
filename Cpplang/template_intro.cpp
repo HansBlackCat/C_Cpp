@@ -56,6 +56,51 @@ class Vector<bool> {
                     data[i] = 0;
                 }
             }
+        
+        void push_back(bool s) {
+            if (capacity * 32 <= length) {
+                unsigned int* temp = new unsigned int[capacity * 2];
+                for (int i = 0; i < capacity; i++) {
+                    temp[i] = data[i];
+                }
+                for (int i = capacity; i < 2 * capacity; i++) {
+                    temp[i] = 0;
+                }
+                delete[] data;
+                data = temp;
+                capacity *= 2;
+            }
+
+            if (s) {
+                data[length / 32] |= (1 << (length % 32));
+            }
+
+            length ++;
+        }
+
+        void remove(int x) {
+            for (int i = x+1; i < length; i++) {
+                int prev = i - 1;
+                int curr = i;
+
+                if (data[curr / 32] & (1 << (curr % 32))) {
+                    data[prev / 32] |= (1 << (prev % 32));
+                } else {
+                    unsigned int all_ones_except_prev = 0xFFFFFFFF;
+                    all_ones_except_prev ^= (1 << (prev % 32));
+                    data[prev / 32] &= all_ones_except_prev;
+                }
+            }
+            length--;
+        }
+
+        int size() {return length;}
+
+        ~Vector() {
+            if (data) {
+                delete[] data;
+            }
+        }
 };
 
 int main() {
