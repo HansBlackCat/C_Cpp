@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <array>
 
 template <typename T>
 class Vector {
@@ -35,6 +36,12 @@ class Vector {
         }
 
         int size() {return length;}
+
+        void swap(int i, int j) {
+            T temp = data[j];
+            data[j] = data[i];
+            data[i] = temp;
+        }
 
         ~Vector() {
             if (data) {delete[] data;}
@@ -103,17 +110,104 @@ class Vector<bool> {
         }
 };
 
+// func is *NOT* functionl, but object
+// overloaded operator() from Comp Class
+template <typename C, typename Func> 
+void bubble_sort(C& count, Func& func) {
+    for (int i = 0; i < count.size(); i++) {
+        for (int j = i; j < count.size(); j++) {
+            if (func(count[i], count[j])) {
+                count.swap(i, j);
+            }
+        }
+    }
+}
+
+// This is Functor class
+struct Comp1
+{
+    bool operator()(int a, int b) {return a>b;}
+};
+template <typename T>
+struct Comp2
+{
+    bool operator()(const T& a, const T& b) {return a<b;}
+};
+
+template <typename T, int num>  
+T add_num(T t) {
+    return t + num;
+}
+
+template <typename T>
+void print_array(const T& arr) {
+    for (int i = 0; i < arr.size(); i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+template <int num>  
+void test_fun() {
+    int temp_num = num;
+    std::cout << temp_num << std::endl;
+}
+
+template <typename T>  
+struct Compare
+{
+    bool operator()(const T& a, const T& b) const {return a<b;}
+};
+template <typename T, class Func = Compare<T> >
+T min(T a, T b) {
+    Func comp;
+    if (comp(a, b)) {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+
 int main() {
 
     Vector<int> int_vec;
     int_vec.push_back(3);
     int_vec.push_back(2);
+    int_vec.push_back(5);
+    int_vec.push_back(0);
 
-    std::cout << int_vec[0] <<std::endl;
-    std::cout << int_vec[1] <<std::endl;
+    std::cout << int_vec[0] << std::endl;
+    std::cout << int_vec[1] << std::endl;
 
-    
+    Comp1 comp1;
+    bubble_sort(int_vec, comp1);
+    for (int i = 0; i < int_vec.size(); i++) {
+        std::cout << int_vec[i] << " ";
+    }
+    std::cout << std::endl;
 
-    std::cout << "END_PROCESS" << std::endl;
+    Comp2<int> comp2;
+    bubble_sort(int_vec, comp2);
+    for (int i = 0; i < int_vec.size(); i++) {
+        std::cout << int_vec[i] << " ";
+    }
+    std::cout << std::endl;
+
+    int x = 3;
+    std::cout << "x: " << add_num<int, 5>(x) << std::endl;
+
+    std::array<int, 6> arr = {1,2,3,4,5,6};
+    std::array<char, 3> arr2 = {'a','b','t'};
+    print_array(arr);
+    print_array(arr2);
+
+    test_fun<3>();
+    std::cout << std::endl;
+
+    int a = 3, b = 5;
+    std::cout << min(a, b) << std::endl;
+
+    std::cout << "\nEND_PROCESS" << std::endl;
     return 0;
 }

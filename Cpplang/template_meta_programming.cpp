@@ -97,5 +97,5 @@ int main() {
     typedef _Ratio_add<rt1, rt2> rt3;
     typedef Ratio_add<rt1, rt2> rtr3;
     std::cout << rt3::type::divd << "/" << rt3::type::divs << std::endl;
-    std::cout << rtr3::divd << "/" << rtr3::divd << std::endl;
+    std::cout << rtr3::divd << "/" << rtr3::divs << std::endl;
 }
