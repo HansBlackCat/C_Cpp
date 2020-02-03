@@ -35,6 +35,22 @@ class self_direct_shareptr {
         }
 };
 
+class Circular_reference {
+    int* data;
+    std::shared_ptr<Circular_reference> other;
+
+    public:  
+        Circular_reference() {
+            data = new int[100];
+            std::cout << "Acquire Resource" << std::endl;
+        }
+        ~Circular_reference() {
+            std::cout << "Call Circular Reference Destructor" << std::endl;
+            delete[] data;
+        }
+        void set_other(std::shared_ptr<Circular_reference> o) {other = o;}
+};
+
 int main() {
     std::vector<std::shared_ptr<A>> vec;
 
@@ -78,5 +94,16 @@ int main() {
     std::shared_ptr<A> pal1 = std::make_shared<A>();
     std::shared_ptr<A> pal2 = pal1 -> get_shared_ptr();
 
+    std::cout << "------ && ------" << std::endl;
+    std::shared_ptr<Circular_reference> cr1 = std::make_shared<Circular_reference>();
+    std::shared_ptr<Circular_reference> cr2 = std::make_shared<Circular_reference>();
+
+    cr1 -> set_other(cr2);
+    cr2 -> set_other(cr1);
+
+    std::cout << "------ weak_ptr ------" << std::endl;
+    std::cout << "------ && ------" << std::endl;
+    
+    
     std::cout << "PROCESS_END" << std::endl;
 }
