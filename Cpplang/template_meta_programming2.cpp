@@ -64,7 +64,7 @@ struct Dim {
     using T = W;
 
     using type = Dim<M, L, T>;
-}
+};
 
 int main() {
     std::cout << "Prime Calculating(61): " << is_prime<61>::result << std::endl;
