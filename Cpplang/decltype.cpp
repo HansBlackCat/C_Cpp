@@ -6,6 +6,15 @@ struct A {
     static int g();
 };
 
+struct B {
+    B(int x) {}
+    int f() {return 0;}
+};
+
+struct A {
+    int f() {return 0;}
+};
+
 int main() {
     int a = 3;
     decltype(a) b = 2; // int
@@ -23,5 +32,9 @@ int main() {
     decltype(a2 + b2) c; //prvalue(int)
 
     int a3;
-    decltype((a3)) c3 = a; //lvalue(int&) 
+    decltype((a3)) c3 = a; //lvalue(int&)
+
+    decltype(A().f()) ret_val;
+
+    decltype(B().f()) ret_val2;
 }
